@@ -24,30 +24,27 @@ class AppPrimaryButton extends StatelessWidget {
           RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
         ),
         backgroundColor: WidgetStatePropertyAll<Color>(
-          (btnColor ??
-                  Theme.of(context).buttonTheme.colorScheme?.primary ??
-                  Theme.of(context).primaryColor)
-              .withValues(alpha: isLoading ? 0.5 : 1),
+          btnColor.withValues(alpha: isLoading ? 0.5 : 1),
         ),
       ),
       child: Center(
         child: isLoading
             ? const SizedBox(
-                width: 20,
-                height: 20,
-                child: CircularProgressIndicator(
-                  color: Colors.white,
-                  strokeWidth: 2,
-                ),
-              )
+          width: 20,
+          height: 20,
+          child: CircularProgressIndicator(
+            color: Colors.white,
+            strokeWidth: 2,
+          ),
+        )
             : Text(
-                text,
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 14,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
+          text,
+          style: const TextStyle(
+            color: Colors.white,
+            fontSize: 14,
+            fontWeight: FontWeight.w500,
+          ),
+        ),
       ),
     );
     return child;

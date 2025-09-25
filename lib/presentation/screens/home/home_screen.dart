@@ -94,8 +94,4 @@ class UsersDetails extends StatelessWidget {
         return SizedBox.shrink();
     }
   }
-
-  String _getInitial(String name) {
-    return name.isNotEmpty ? name[0].toUpperCase() : '?';
-  }
 }
