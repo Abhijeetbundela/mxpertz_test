@@ -13,7 +13,15 @@ Future<AppRouter> initializeApp(
   await Firebase.initializeApp();
   await di.configureDependencies();
   final authSessionService = di.getIt<AuthSessionService>();
+
   final isLoggedInAndExist = await authSessionService.isLoggedInAndExist();
+
+  final hasCompletedOnboarding = authSessionService.isOnboardingComplete();
+
   FlutterNativeSplash.remove();
-  return AppRouter(isLoggedInAndExist, rootNavigatorKey);
+  return AppRouter(
+    isLoggedInAndExist,
+    hasCompletedOnboarding,
+    rootNavigatorKey,
+  );
 }

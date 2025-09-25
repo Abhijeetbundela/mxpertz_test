@@ -49,23 +49,17 @@ class SharedPrefsHelper {
     );
   }
 
+  Future<bool> setOnboardingComplete(bool value) async =>
+      await _setBool(SharedPrefsKeys.isUserOnboard, value);
+
+  bool isOnboardingComplete() => _getBool(SharedPrefsKeys.isUserOnboard);
+
+  Future<bool> _setBool(String key, bool value) async =>
+      await _prefs.setBool(key, value);
+
+  bool _getBool(String key) => _prefs.getBool(key) ?? false;
+
   Future<bool> clear() async {
     return _prefs.clear();
-  }
-
-  Future<bool> setString(String key, String value) async {
-    return _prefs.setString(key, value);
-  }
-
-  String getString(String key) {
-    return _prefs.getString(key) ?? '';
-  }
-
-  Future<bool> setBool(String key, bool value) async {
-    return _prefs.setBool(key, value);
-  }
-
-  bool getBool(String key) {
-    return _prefs.getBool(key) ?? false;
   }
 }
