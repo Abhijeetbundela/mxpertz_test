@@ -1,5 +1,4 @@
 import 'package:injectable/injectable.dart';
-import 'package:mxpertz_test/core/constants/shared_prefs_keys.dart';
 import 'package:mxpertz_test/core/services/shared_prefs_helper.dart';
 import 'package:mxpertz_test/data/repositories/auth_repository.dart';
 import 'package:mxpertz_test/data/repositories/firestore_repository.dart';
@@ -42,12 +41,12 @@ class AuthSessionService {
     return result;
   }
 
-  Future<bool> setOnBoardSession(bool value) async {
-    return await _prefsHelper.setBool(SharedPrefsKeys.isUserOnboard, value);
+  Future<bool> setOnboardingCompleted(bool value) async {
+    return await _prefsHelper.setOnboardingComplete(value);
   }
 
-  bool isOnBoardSession() {
-    return _prefsHelper.getBool(SharedPrefsKeys.isUserOnboard);
+  bool isOnboardingComplete() {
+    return _prefsHelper.isOnboardingComplete();
   }
 
   Future<bool> clearSession() async {

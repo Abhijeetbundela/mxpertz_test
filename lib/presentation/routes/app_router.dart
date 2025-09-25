@@ -1,11 +1,13 @@
+import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:mxpertz_test/presentation/screens/auth/login_screen.dart';
 import 'package:mxpertz_test/presentation/screens/auth/otp_screen.dart';
 import 'package:mxpertz_test/presentation/screens/auth/signup_screen.dart';
 import 'package:mxpertz_test/presentation/screens/home/home_screen.dart';
-import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+import 'package:mxpertz_test/presentation/screens/onboarding/onboarding_screen.dart';
 
 class RouterPaths {
+  static const String onboarding = '/onboarding';
   static const String login = '/login';
   static const String otp = '/otp';
   static const String signup = '/signup';
@@ -13,16 +15,25 @@ class RouterPaths {
 }
 
 class AppRouter {
-  AppRouter(this._isLoggedIn, this._navigatorKey);
+  AppRouter(this._isLoggedIn, this._hasCompletedOnboarding, this._navigatorKey);
 
   final bool _isLoggedIn;
+  final bool _hasCompletedOnboarding;
   final GlobalKey<NavigatorState> _navigatorKey;
 
-  late final GoRouter router = GoRouter(
-    initialLocation: _isLoggedIn ? RouterPaths.home : RouterPaths.login,
-    navigatorKey: _navigatorKey,
+  String getInitialLocation() {
+    if (!_hasCompletedOnboarding) {
+      return RouterPaths.onboarding;
+    }
+    if (_isLoggedIn) {
+      return RouterPaths.home;
+    }
+    return RouterPaths.login;
+  }
 
-    // Error handling
+  late final GoRouter router = GoRouter(
+    initialLocation: getInitialLocation(),
+    navigatorKey: _navigatorKey,
     errorBuilder: (context, state) => Scaffold(
       appBar: AppBar(title: const Text('Page Not Found')),
       body: Center(
@@ -47,6 +58,15 @@ class AppRouter {
     ),
 
     routes: [
+      GoRoute(
+        path: RouterPaths.onboarding,
+        builder: (context, state) => const OnboardingScreen(),
+        pageBuilder: (context, state) => _buildPageWithFadeTransition(
+          context,
+          state,
+          const OnboardingScreen(),
+        ),
+      ),
       GoRoute(
         path: RouterPaths.login,
         builder: (context, state) => const LoginScreen(),
