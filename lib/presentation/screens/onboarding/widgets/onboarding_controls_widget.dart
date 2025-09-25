@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mxpertz_test/domain/entities/onboarding_page_item.dart';
 import 'package:mxpertz_test/presentation/blocs/onboarding/onboarding_bloc.dart';
 
+import 'onboarding_button/gradient_button_with_double_dashed_border.dart';
+
 class OnboardingControlsWidget extends StatelessWidget {
   final PageController pageController;
   final List<OnboardingPageItem> pages;
@@ -63,6 +65,15 @@ class OnboardingControlsWidget extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
+                      Visibility(
+                        visible: false,
+                        maintainSize: true,
+                        maintainAnimation: true,
+                        maintainState: true,
+                        child: GradientButtonWithDoubleDashedBorder(
+                          onPressed: () {},
+                        ),
+                      ),
                       TextButton(
                         onPressed: () {
                           context.read<OnboardingBloc>().add(
@@ -71,10 +82,14 @@ class OnboardingControlsWidget extends StatelessWidget {
                         },
                         child: const Text(
                           'Skip>>',
-                          style: TextStyle(color: Colors.orange, fontSize: 16),
+                          style: TextStyle(
+                            color: Colors.orange,
+                            fontSize: 16,
+                            fontWeight: FontWeight.w900,
+                          ),
                         ),
                       ),
-                      FloatingActionButton(
+                      GradientButtonWithDoubleDashedBorder(
                         onPressed: () {
                           if (!isLastPage) {
                             pageController.animateToPage(
@@ -85,11 +100,6 @@ class OnboardingControlsWidget extends StatelessWidget {
                           }
                           context.read<OnboardingBloc>().add(NextPageEvent());
                         },
-                        backgroundColor: Colors.orange,
-                        child: Icon(
-                          isLastPage ? Icons.check : Icons.arrow_forward,
-                          color: Colors.white,
-                        ),
                       ),
                     ],
                   ),
