@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mxpertz_test/common/widgets/app_primary_button.dart';
-import 'package:mxpertz_test/core/constants/app_colors.dart';
-import 'package:mxpertz_test/core/constants/app_constants.dart';
 import 'package:mxpertz_test/core/constants/asset_paths.dart';
 import 'package:mxpertz_test/core/di/injector.dart';
 import 'package:mxpertz_test/core/utils/validators.dart';
